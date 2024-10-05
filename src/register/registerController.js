@@ -20,9 +20,18 @@ router.post('/', async (req, res) => {
     } catch (error) {
 
         if (error.code === 'P2002') {
+
+            let existedData = error.meta.target;
+
+            if (existedData === 'users_nim_key') {
+                existedData = 'Nomor Induk Mahasiswa';
+            } else if (existedData === 'users_email_key') {
+                existedData = 'email';
+            }
+
             return res.status(400).json({
                 status: "Fail",
-                message: `A user with this ${error.meta.target} already exists.`
+                message: `A user with this ${existedData} already exists.`
             });
         }
 
