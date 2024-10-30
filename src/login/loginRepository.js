@@ -30,7 +30,7 @@ const generateToken = (userId, userEmail) => {
             email: userEmail 
         }, 
         SECRET_KEY, 
-        { expiresIn: '1h' }
+        { expiresIn: '2h' }
     );
 
     return token;

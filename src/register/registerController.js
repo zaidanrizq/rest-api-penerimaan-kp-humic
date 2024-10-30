@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
             if (existedData === 'users_nim_key') {
                 existedData = 'Nomor Induk Mahasiswa';
             } else if (existedData === 'users_email_key') {
-                existedData = 'email';
+                existedData = 'Email';
             }
 
             return res.status(400).json({
@@ -37,7 +37,7 @@ router.post('/', async (req, res) => {
 
         return res.status(500).json({
             status: "Error",
-            message: "Internal server error."
+            message: `Internal Server Error ${error}: ${error.message}`
         });
     }
     

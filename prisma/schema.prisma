@@ -17,27 +17,67 @@ model users {
   user_id Int @id @default(autoincrement())
   full_name String @db.VarChar(72)
   birth_date DateTime?
-  gender Gender?
+  gender String? @db.Char(1)
   nim String @unique @db.VarChar(10)
-  perguruan_tinggi PerguruanTinggi?
+  perguruan_tinggi String @db.VarChar(35)
   prodi String @db.VarChar(72)
   cv String? @db.VarChar(320)
   portfolio String? @db.VarChar(320)
   phone_number String @db.VarChar(13)
   email String @unique @db.VarChar(320)
   password String @db.VarChar(72)
+  profile_picture String? @db.VarChar(2083)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+
+  kp_application kp_applications?
 }
 
-enum Gender {
-  M
-  F
+model batches {
+  batch_id Int @id @default(autoincrement())
+  number String @unique @db.VarChar(4)
+  opened_at DateTime
+  closed_at DateTime
+  semester String @db.VarChar(6)
+  year String @db.VarChar(4)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  kp_roles kp_roles[]
 }
 
-enum PerguruanTinggi {
-  TEL_U_BANDUNG
-  TEL_U_JAKARTA
-  TEL_U_PURWOKERTO
-  TEL_U_SURABAYA
+model kp_roles {
+  role_id Int @id @default(autoincrement())
+  slug String @unique @db.VarChar(72)
+  name String @db.VarChar(72)
+  description String @db.Text
+  kualifikasi String @db.Text
+  role_image String @db.VarChar(2083)
+
+  batch batches @relation(fields: [batch_id], references: [batch_id])
+  batch_id Int
+
+  kp_applications kp_applications[]
+}
+
+model kp_applications {
+  application_id Int @id @default(autoincrement())
+  status String @db.VarChar(10) @default("Proses")
+  application_date DateTime
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  user users @relation(fields: [user_id], references: [user_id])
+  user_id Int @unique
+
+  kp_role kp_roles @relation(fields: [role_id], references: [role_id])
+  role_id Int
+}
+
+model admin {
+  admin_id Int @id @default(autoincrement())
+  email String @unique @db.VarChar(320)
+  password String @db.VarChar(72)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }

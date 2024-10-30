@@ -10,6 +10,7 @@ const insertNewUsers = async (newUserData) => {
         data: {
             full_name: newUserData.full_name,
             nim: newUserData.nim,
+            perguruan_tinggi: newUserData.perguruan_tinggi,
             prodi: newUserData.prodi,
             phone_number: newUserData.phone_number,
             email: newUserData.email,
