@@ -40,6 +40,7 @@ model batches {
   closed_at DateTime
   semester String @db.VarChar(6)
   year String @db.VarChar(4)
+  selection_announcement Boolean @default(false)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
@@ -48,13 +49,12 @@ model batches {
 
 model kp_roles {
   role_id Int @id @default(autoincrement())
-  slug String @unique @db.VarChar(72)
   name String @db.VarChar(72)
   description String @db.Text
   kualifikasi String @db.Text
   role_image String @db.VarChar(2083)
 
-  batch batches @relation(fields: [batch_id], references: [batch_id])
+  batch batches @relation(fields: [batch_id], references: [batch_id], onDelete: Cascade)
   batch_id Int
 
   kp_applications kp_applications[]
@@ -67,10 +67,10 @@ model kp_applications {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  user users @relation(fields: [user_id], references: [user_id])
+  user users @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
   user_id Int @unique
 
-  kp_role kp_roles @relation(fields: [role_id], references: [role_id])
+  kp_role kp_roles @relation(fields: [role_id], references: [role_id], onDelete: Cascade)
   role_id Int
 }
 

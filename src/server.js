@@ -26,7 +26,7 @@ app.use('/application-kp', applicationKPController)
 app.use('/admin-login', adminLoginController)
 app.use('/batch', batchController);
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => {
 

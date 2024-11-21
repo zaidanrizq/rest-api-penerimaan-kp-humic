@@ -30,21 +30,10 @@ const getRoleById = async (id) => {
 
 const createRoleKP = async (data, folder, file) => {
 
-    const existingRole = await prisma.kp_roles.findUnique({
-        where: { slug: data.slug },
-    });
-
-    if (existingRole) {
-        const error = new Error();
-        error.code = 'P2002'
-        throw error;
-    }
-
     const roleImage = await uploadFile(folder, file);
 
     await prisma.kp_roles.create({
         data: {
-            slug: data.slug,
             name: data.name,
             description: data.description,
             kualifikasi: data.kualifikasi,
@@ -68,7 +57,6 @@ const updateRoleKP = async (id, data, folder, file) => {
         },
         data: {
             name: data.name,
-            slug: data.slug,
             description: data.description,
             kualifikasi: data.kualifikasi,
             opened_at: data.opened_at,

@@ -8,6 +8,7 @@ const createBatch = async (data) => {
             number: data.number,
             semester: data.semester,
             year: data.year,
+            selection_announcement: data.selection_announcement,
             opened_at: data.opened_at,
             closed_at: data.closed_at
         }
@@ -41,6 +42,7 @@ const updateBatch = async (id, data) => {
             number: data.number,
             semester: data.semester,
             year: data.year,
+            selection_announcement: data.selection_announcement,
             opened_at: data.opened_at,
             closed_at: data.closed_at
         }
